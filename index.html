@@ -1,0 +1,145 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+<meta name="theme-color" content="#f6f2eb">
+<title>喵喵找家 · 小猫区域数独</title>
+<style>
+:root{--ink:#484458;--muted:#8f8b9a;--paper:#f6f2eb;--white:#fffefa;--line:#e8e1d6;--green:#83af78;--green-dark:#6d985f;--pink:#f1a5ad;--shadow:0 5px 0 #e9e2d7,0 11px 25px #53485c14;--cell-gap:4px}
+*{box-sizing:border-box}html{min-height:100%;background:var(--paper)}body{margin:0;min-height:100svh;background:var(--paper);color:var(--ink);font-family:"Trebuchet MS","Arial Rounded MT Bold",system-ui,"Microsoft YaHei",sans-serif;display:flex;justify-content:center;-webkit-tap-highlight-color:transparent}button{font:inherit;color:inherit;border:0;cursor:pointer;touch-action:manipulation}button:focus-visible{outline:3px solid #6f85b5;outline-offset:3px}.app{width:min(100%,560px);min-height:100svh;padding:14px 20px 20px;display:flex;flex-direction:column;align-items:center;gap:12px}.top{width:100%;display:grid;grid-template-columns:50px 1fr auto;align-items:center;gap:10px}.round{width:46px;height:46px;border-radius:50%;background:var(--white);box-shadow:0 3px 0 var(--line);font-size:21px}.brand{text-align:center;font-weight:1000;font-size:19px;line-height:1.05;letter-spacing:.02em}.brand small{display:block;color:var(--muted);font-size:11px;letter-spacing:.12em;margin-top:5px}.top-actions{display:flex;align-items:center;gap:8px}.badge,.menu-btn{background:#eee8f5;border-radius:99px;padding:9px 12px;color:#786793;font-size:12px;font-weight:900;white-space:nowrap}.menu-btn{background:var(--white);color:var(--ink);box-shadow:0 3px 0 var(--line);padding-inline:14px}.intro{text-align:center}.cat-hero{width:58px;height:58px;margin:0 auto 2px;filter:drop-shadow(0 3px 0 #e6d8cc);animation:hello 3.5s ease-in-out infinite}.intro h1{font-size:24px;line-height:1.2;margin:3px 0 4px;font-weight:1000}.intro p{margin:0;color:var(--muted);font-size:13px;font-weight:700}.rules{display:grid;grid-template-columns:repeat(4,1fr);gap:5px;width:min(100%,470px)}.rule{min-height:44px;padding:6px 3px;border-radius:13px;background:#fffefa;box-shadow:0 2px 0 #e9e3da;text-align:center;font-size:11px;line-height:1.2;font-weight:900;color:#696576;display:flex;align-items:center;justify-content:center;gap:4px}.rule .symbol{font-size:16px;color:#83a876}.board-shell{width:min(100%,460px);background:var(--white);border-radius:21px;padding:9px;box-shadow:var(--shadow);position:relative}.board{display:grid;aspect-ratio:1;gap:var(--cell-gap);grid-template-columns:repeat(var(--size),minmax(0,1fr));grid-template-rows:repeat(var(--size),minmax(0,1fr));overflow:hidden;border-radius:14px}.cell{position:relative;min-width:0;min-height:0;border-radius:clamp(5px,2.6vw,12px);padding:0;display:grid;place-items:center;transition:filter .15s,transform .13s,box-shadow .15s;user-select:none}.cell:active{transform:scale(.95)}.cell .cat{width:83%;height:83%;max-width:68px;max-height:68px;filter:drop-shadow(0 2px 0 #ffffff8a);pointer-events:none}.cell.conflict{z-index:1;box-shadow:inset 0 0 0 3px #e66f76;animation:nudge .24s ease 2}.cell.hint-target{box-shadow:inset 0 0 0 3px #fffefa,0 0 0 3px #e7b94c;animation:pop .32s ease}.cell[data-region="0"]{background:#a9d5b3}.cell[data-region="1"]{background:#f5c3ce}.cell[data-region="2"]{background:#f6c788}.cell[data-region="3"]{background:#b9acd9}.cell[data-region="4"]{background:#9bcbd1}.cell[data-region="5"]{background:#ead071}.cell[data-region="6"]{background:#edaa8b}.cell[data-region="7"]{background:#b6cf8d}.cell[data-region="8"]{background:#8fc2a7}.cell[data-region="9"]{background:#d9a8c9}.cell.empty{background-image:radial-gradient(#ffffff32 1.1px,transparent 1.1px);background-size:10px 10px}.status{width:min(100%,460px);min-height:24px;text-align:center;font-weight:900;color:#708b67;font-size:14px;margin-top:-3px}.status.warn{color:#bd7075}.status.good{color:#638e5e}.controls{width:min(100%,460px);display:grid;grid-template-columns:1fr 1.3fr 1fr;gap:9px}.control{min-height:50px;border-radius:15px;background:var(--white);box-shadow:0 4px 0 #e8e1d6;font-size:14px;font-weight:1000}.control:active,.menu-btn:active,.round:active{transform:translateY(2px);box-shadow:0 1px 0 #e8e1d6}.control .ico{font-size:17px;margin-right:4px}.control.primary{background:var(--green);color:white;box-shadow:0 4px 0 var(--green-dark)}.control.primary:active{box-shadow:0 1px 0 var(--green-dark)}.progress{width:min(100%,460px);display:flex;align-items:center;gap:10px;color:var(--muted);font-size:12px;font-weight:900}.meter{height:9px;background:#e9e4dc;border-radius:99px;flex:1;overflow:hidden}.meter i{display:block;height:100%;width:0;background:#e8c462;border-radius:99px;transition:width .25s}.tipline{font-size:12px;color:#aaa5ad;font-weight:700;text-align:center;margin-top:-4px}.overlay{position:fixed;inset:0;background:#4b465b66;z-index:10;display:none;align-items:center;justify-content:center;padding:18px}.overlay.open{display:flex}.dialog{width:min(100%,430px);max-height:min(88svh,760px);overflow:auto;background:var(--paper);border-radius:24px;padding:20px;box-shadow:0 12px 45px #3029363d}.dialog-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:5px}.dialog h2{font-size:22px;margin:0;font-weight:1000}.close{width:38px;height:38px;border-radius:50%;background:white;font-size:22px}.dialog p{margin:0 0 15px;color:var(--muted);font-size:13px;font-weight:700}.levels{display:grid;grid-template-columns:repeat(5,1fr);gap:8px}.level{aspect-ratio:1;border-radius:15px;background:white;box-shadow:0 3px 0 #e6dfd5;font-weight:1000;font-size:15px;position:relative}.level.current{background:#fff0c9;box-shadow:inset 0 0 0 2px #e9bf54,0 3px 0 #e6dfd5}.level.cleared{background:#e4f0dc;color:#618455}.level.locked{color:#c5c0c2;background:#eeeae4;cursor:default}.level .mini-star{display:block;font-size:10px;margin-top:1px;color:#e4b948}.toast{position:fixed;left:50%;bottom:20px;z-index:15;transform:translate(-50%,18px);opacity:0;pointer-events:none;background:#494558;color:white;border-radius:99px;padding:11px 17px;font-size:13px;font-weight:900;white-space:nowrap;transition:.2s}.toast.show{opacity:1;transform:translate(-50%,0)}.celebrate{position:fixed;z-index:12;inset:0;pointer-events:none;display:grid;place-items:center;opacity:0;font-size:66px}.celebrate.show{animation:yay 1s ease both}@keyframes hello{50%{transform:translateY(-4px) rotate(-4deg)}}@keyframes nudge{25%,75%{transform:translateX(-3px)}50%{transform:translateX(3px)}}@keyframes pop{50%{transform:scale(1.08)}}@keyframes yay{0%{opacity:0;transform:scale(.5)}25%{opacity:1;transform:scale(1.1)}100%{opacity:0;transform:scale(1.4)}}
+@media(max-width:390px){.app{padding:10px 14px 15px;gap:10px}.top{grid-template-columns:42px 1fr auto;gap:7px}.round{width:40px;height:40px}.brand{font-size:17px}.badge{padding:8px 9px;font-size:11px}.menu-btn{padding:8px 10px;font-size:12px}.intro h1{font-size:21px}.cat-hero{width:51px;height:51px}.rules{gap:4px}.rule{font-size:10px;min-height:40px}.board-shell{padding:7px;border-radius:17px}.board{gap:3px}.controls{gap:7px}.control{font-size:12px;min-height:46px}.control .ico{font-size:15px}.levels{gap:6px}.level{border-radius:12px}}
+@media(max-height:760px) and (min-width:391px){.app{gap:8px;padding-top:10px}.cat-hero{width:48px;height:48px}.intro h1{font-size:21px}.rule{min-height:38px}.board-shell{width:min(100%,390px)}}
+@media(prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.01ms!important;transition-duration:.01ms!important;scroll-behavior:auto!important}}
+/* Clues, sound control and the level-complete dialog */
+.cell.fixed{box-shadow:inset 0 0 0 2px #fff9cf}.cell.fixed::after{content:"✦";position:absolute;right:5px;bottom:3px;color:#fffaf0;text-shadow:0 1px 2px #8b7460;font-size:11px;pointer-events:none}
+.sound-toggle{background:#eee8f5;color:#786793;border-radius:99px;padding:8px 13px;font-size:12px;font-weight:900}
+.success-overlay{position:fixed;inset:0;background:#4b465b70;z-index:20;display:none;align-items:center;justify-content:center;padding:18px}.success-overlay.open{display:flex}.success-dialog{width:min(100%,360px);background:var(--paper);border-radius:26px;padding:25px 22px 22px;text-align:center;box-shadow:0 13px 42px #30293640;animation:pop .32s ease}.success-dialog .success-cat{font-size:56px;line-height:1;margin-bottom:8px}.success-dialog h2{margin:0 0 7px;font-size:25px}.success-dialog p{margin:0 0 18px;color:var(--muted);font-weight:700;font-size:14px}.next-button{width:100%;min-height:52px;border-radius:16px;background:var(--green);color:white;box-shadow:0 4px 0 var(--green-dark);font-size:16px;font-weight:1000}.next-button:active{transform:translateY(2px);box-shadow:0 1px 0 var(--green-dark)}
+</style>
+</head>
+<body>
+<main class="app">
+  <header class="top">
+    <button class="round" id="restart" aria-label="重新开始本关">↻</button>
+    <div class="brand">喵喵找家<small>小猫区域数独</small></div>
+    <div class="top-actions"><span class="badge" id="levelBadge">第 1 / 20 关</span><button class="menu-btn" id="openLevels">选关</button></div>
+  </header>
+  <section class="intro">
+    <div class="cat-hero" id="heroCat" aria-hidden="true"></div>
+    <h1>把小猫放进彩色格子里</h1>
+    <p>每种颜色、每行、每列，都住一只小猫</p>
+  </section>
+  <section class="rules" aria-label="游戏规则">
+    <div class="rule"><span class="symbol">↔</span><span>每行一只</span></div>
+    <div class="rule"><span class="symbol">↕</span><span>每列一只</span></div>
+    <div class="rule"><span class="symbol">●</span><span>每种颜色一只</span></div>
+    <div class="rule"><span class="symbol">✳</span><span>斜角也不挨着</span></div>
+  </section>
+  <section class="board-shell" aria-label="彩色小猫棋盘"><div class="board" id="board" role="grid"></div></section>
+  <div class="status" id="status" aria-live="polite"></div>
+  <section class="controls" aria-label="游戏操作">
+    <button class="control" id="hint"><span class="ico">💡</span>给提示</button>
+    <button class="control primary" id="check"><span class="ico">🐾</span>检查棋盘</button>
+    <button class="control" id="clear"><span class="ico">⌫</span>拿走猫</button>
+  </section>
+  <div class="progress"><span id="catCount">还要放 4 只</span><div class="meter"><i id="meter"></i></div><span id="starCount">⭐ 0</span></div>
+  <div class="tipline" id="levelTip">点空格放猫，再点小猫就能拿走</div>
+  <button class="sound-toggle" id="soundToggle" type="button" aria-pressed="true">🔊 声音开</button>
+</main>
+<div class="overlay" id="levelDialog" role="dialog" aria-modal="true" aria-labelledby="dialogTitle">
+  <div class="dialog"><div class="dialog-head"><h2 id="dialogTitle">选择一关</h2><button class="close" id="closeLevels" aria-label="关闭">×</button></div><p>一关一关慢慢来，小猫在等你 🐱</p><div class="levels" id="levels"></div></div>
+</div>
+<div class="success-overlay" id="successOverlay" role="dialog" aria-modal="true" aria-labelledby="successTitle" aria-describedby="successMessage">
+  <div class="success-dialog"><div class="success-cat" aria-hidden="true">🐱✨</div><h2 id="successTitle">太棒啦！</h2><p id="successMessage">每只小猫都找到自己的家了！</p><button class="next-button" id="successAction" type="button">下一关</button></div>
+</div>
+<div class="toast" id="toast" role="status"></div><div class="celebrate" id="celebrate" aria-hidden="true">🐱✨</div>
+<script>
+(()=>{
+  'use strict';
+  const patterns={
+    4:[[1,3,0,2],[2,0,3,1]],
+    5:[[0,2,4,1,3],[1,3,0,2,4],[2,4,1,3,0],[3,0,2,4,1]],
+    6:[[1,3,5,0,2,4],[2,5,1,4,0,3],[3,0,4,1,5,2],[0,3,5,2,4,1]]
+  };
+  const plan=[4,4,4,4,4,4,5,5,5,5,5,5,5,5,6,6,6,6,6,6];
+  const levelData=plan.map((size,index)=>({size,solution:patterns[size][index%patterns[size].length].slice(),seed:index}));
+  const palette=['#a9d5b3','#f5c3ce','#f6c788','#b9acd9','#9bcbd1','#ead071'];
+  const state={level:0,cats:[],fixed:[],regions:[],unlocked:1,cleared:[],selected:-1,completed:false,soundEnabled:true};
+  const $=s=>document.querySelector(s),board=$('#board'),status=$('#status'),dialog=$('#levelDialog');
+  let audioContext=null;
+  const CAT=`<svg class="cat" viewBox="0 0 100 100" aria-hidden="true"><path d="M17 43 14 15q-1-7 6-3l20 15q10-4 20 0L80 12q7-4 6 4l-3 29c5 8 7 16 6 25-2 21-17 30-39 30S12 91 11 70c-1-10 1-19 6-27Z" fill="#fffaf1" stroke="#776978" stroke-width="4" stroke-linejoin="round"/><path d="m22 20 14 11-15 6Z" fill="#efa4ae"/><path d="m76 20-14 11 15 6Z" fill="#efa4ae"/><path d="M48 33q9-7 19 0-3 8-11 8t-8-8Z" fill="#e8a45f"/><ellipse cx="35" cy="59" rx="5" ry="7" fill="#514b59"/><ellipse cx="67" cy="59" rx="5" ry="7" fill="#514b59"/><circle cx="36.5" cy="57" r="1.7" fill="white"/><circle cx="68.5" cy="57" r="1.7" fill="white"/><ellipse cx="51" cy="69" rx="5" ry="3.5" fill="#e88c9b"/><path d="M51 72q-1 7-8 6m8-6q1 7 8 6" fill="none" stroke="#776978" stroke-width="2.5" stroke-linecap="round"/><ellipse cx="27" cy="71" rx="6" ry="3" fill="#f4b4b2" opacity=".8"/><ellipse cx="75" cy="71" rx="6" ry="3" fill="#f4b4b2" opacity=".8"/><path d="m22 67-11-2m11 8-12 2m67-8 11-2m-11 8 12 2" fill="none" stroke="#91818d" stroke-width="2" stroke-linecap="round"/></svg>`;
+  $('#heroCat').innerHTML=CAT;
+  function loadProgress(){try{const p=JSON.parse(localStorage.getItem('miaomia-find-home-v1')||'{}');state.unlocked=Math.max(1,Math.min(20,Number(p.unlocked)||1));state.cleared=Array.isArray(p.cleared)?p.cleared.filter(n=>Number.isInteger(n)&&n>=0&&n<20):[];state.soundEnabled=p.soundEnabled!==false}catch{state.unlocked=1;state.cleared=[];state.soundEnabled=true}}
+  function saveProgress(){try{localStorage.setItem('miaomia-find-home-v1',JSON.stringify({unlocked:state.unlocked,cleared:state.cleared,soundEnabled:state.soundEnabled}))}catch{}}
+  function clueCount(){return state.level<5?3:state.level<10?2:state.level<15?1:0}
+  function setupPuzzle(){const n=current().size;state.cats=Array(n*n).fill(false);state.fixed=Array(n*n).fill(false);state.completed=false;for(let r=0;r<clueCount();r++){const i=r*n+current().solution[r];state.cats[i]=true;state.fixed[i]=true}}
+  function playSound(kind='tap'){
+    if(!state.soundEnabled)return;
+    try{
+      const AudioCtor=window.AudioContext||window.webkitAudioContext;if(!AudioCtor)return;
+      audioContext=audioContext||new AudioCtor();if(audioContext.state==='suspended')audioContext.resume();
+      const ctx=audioContext,now=ctx.currentTime;
+      const tone=(freq,offset,duration,type='sine',volume=.035)=>{const osc=ctx.createOscillator(),gain=ctx.createGain();osc.type=type;osc.frequency.setValueAtTime(freq,now+offset);gain.gain.setValueAtTime(.001,now+offset);gain.gain.linearRampToValueAtTime(volume,now+offset+.012);gain.gain.exponentialRampToValueAtTime(.001,now+offset+duration);osc.connect(gain);gain.connect(ctx.destination);osc.start(now+offset);osc.stop(now+offset+duration+.02)};
+      if(kind==='tap')tone(560,0,.055,'sine',.025);
+      else if(kind==='error'){tone(260,0,.11,'triangle',.045);tone(205,.09,.12,'triangle',.035)}
+      else if(kind==='success'){tone(523,0,.18,'sine',.045);tone(659,.12,.18,'sine',.045);tone(784,.24,.28,'sine',.05)}
+    }catch{}
+  }
+  function updateSoundButton(){const b=$('#soundToggle');b.textContent=state.soundEnabled?'🔊 声音开':'🔇 声音关';b.setAttribute('aria-pressed',String(state.soundEnabled));b.setAttribute('aria-label',state.soundEnabled?'关闭音效':'开启音效')}
+  function buildRegions(level){
+    const n=level.size,owners=Array(n*n).fill(-1),queue=[];
+    for(let r=0;r<n;r++){const c=level.solution[r],i=r*n+c;owners[i]=r;queue.push(i)}
+    const around=[[0,1],[1,0],[0,-1],[-1,0]];
+    const rotate=level.seed%4;
+    for(let h=0;h<queue.length;h++){const i=queue[h],r=Math.floor(i/n),c=i%n,owner=owners[i];for(let j=0;j<4;j++){const [dr,dc]=around[(j+rotate+owner)%4],rr=r+dr,cc=c+dc;if(rr>=0&&rr<n&&cc>=0&&cc<n){const k=rr*n+cc;if(owners[k]===-1){owners[k]=owner;queue.push(k)}}}}
+    return owners;
+  }
+  function current(){return levelData[state.level]}
+  function announce(text,kind=''){status.textContent=text;status.className='status'+(kind?' '+kind:'')}
+  function draw(){
+    const level=current(),n=level.size;state.regions=buildRegions(level);board.style.setProperty('--size',n);board.innerHTML='';
+    for(let i=0;i<n*n;i++){const r=Math.floor(i/n),c=i%n,region=state.regions[i],b=document.createElement('button');b.type='button';b.className='cell'+(state.cats[i]?'':' empty')+(state.fixed[i]?' fixed':'');b.dataset.region=region;b.setAttribute('role','gridcell');b.setAttribute('aria-label',`${r+1}行${c+1}列，${paletteLabel(region)}${state.cats[i]?'，有一只小猫'+(state.fixed[i]?'，固定提示':''):'，空格'}`);b.setAttribute('aria-pressed',state.cats[i]?'true':'false');if(state.cats[i])b.innerHTML=CAT;b.addEventListener('click',()=>toggle(i));board.appendChild(b)}
+    const count=state.cats.filter(Boolean).length;$('#levelBadge').textContent=`第 ${state.level+1} / 20 关`;$('#catCount').textContent=`已放 ${count} / ${n} 只`;$('#meter').style.width=`${Math.min(100,Math.round(count/n*100))}%`;$('#starCount').textContent=`⭐ ${state.cleared.length}`;const hints=clueCount();$('#levelTip').textContent=hints?`已有 ${hints} 只小猫安顿好啦，找找其他小猫的家`:'从空棋盘开始，帮每只小猫找到家';updateSoundButton();
+  }
+  function paletteLabel(region){return ['绿色','粉色','橙色','紫色','蓝色','黄色'][region%6]}
+  function conflicts(cats=state.cats){
+    const n=current().size,marked=new Set();let reason='';const rows=Array.from({length:n},()=>[]),cols=Array.from({length:n},()=>[]),regions=Array.from({length:n},()=>[]);
+    cats.forEach((cat,i)=>{if(!cat)return;const r=Math.floor(i/n),c=i%n;rows[r].push(i);cols[c].push(i);regions[state.regions[i]].push(i)});
+    for(const [groups,msg] of [[rows,'同一行只能住一只猫'],[cols,'同一列只能住一只猫'],[regions,'同一种颜色只能住一只猫']]){for(const group of groups)if(group.length>1){group.forEach(i=>marked.add(i));if(!reason)reason=msg}}
+    for(let i=0;i<cats.length;i++)if(cats[i]){const r=Math.floor(i/n),c=i%n;for(let dr=-1;dr<=1;dr++)for(let dc=-1;dc<=1;dc++){if(!dr&&!dc)continue;const rr=r+dr,cc=c+dc;if(rr>=0&&rr<n&&cc>=0&&cc<n){const j=rr*n+cc;if(j>i&&cats[j]){marked.add(i);marked.add(j);if(!reason)reason='小猫之间要空开一格，斜角也算哦'}}}}
+    return {marked,reason,rows,cols,regions};
+  }
+  function paintConflicts(){const x=conflicts();board.querySelectorAll('.conflict').forEach(e=>e.classList.remove('conflict'));x.marked.forEach(i=>board.children[i]?.classList.add('conflict'));return x}
+  function toggle(i){if(state.completed)return;playSound('tap');if(state.fixed[i]){announce('这只小猫是线索，已经安顿好啦 ✨');return}if(state.cats[i]){state.cats[i]=false;announce('小猫拿起来啦，可以换个格子放 🐾');draw();paintConflicts();return}state.cats[i]=true;draw();const x=paintConflicts();if(x.reason){announce(x.reason+'，点亮的小猫可以移走改一改。','warn');playSound('error')}else if(state.cats.filter(Boolean).length===current().size){completeIfValid()}else announce('放得好！再找一块不同颜色的家 ✨')}
+  function clearSelectedOrLast(){if(state.completed)return;let found=-1;for(let i=state.cats.length-1;i>=0;i--)if(state.cats[i]&&!state.fixed[i]){found=i;break}if(found<0){announce('可移动的小猫还没有放上去呢');return}playSound('tap');state.cats[found]=false;draw();paintConflicts();announce('拿走一只啦，可以重新摆放 🐾')}
+  function solutionFor(cats){
+    const n=current().size,region=state.regions,placedByRow=Array.from({length:n},()=>[]);
+    cats.forEach((v,i)=>{if(v)placedByRow[Math.floor(i/n)].push(i%n)});
+    if(placedByRow.some(row=>row.length>1))return null;
+    const result=Array(n).fill(-1),usedCols=new Set(),usedRegions=new Set();
+    function dfs(r){if(r===n)return true;const opts=placedByRow[r].length?placedByRow[r]:Array.from({length:n},(_,c)=>c);for(const c of opts){if(usedCols.has(c))continue;if(r>0&&result[r-1]>=0&&Math.abs(c-result[r-1])<=1)continue;const reg=region[r*n+c];if(usedRegions.has(reg))continue;result[r]=c;usedCols.add(c);usedRegions.add(reg);if(dfs(r+1))return true;usedCols.delete(c);usedRegions.delete(reg);result[r]=-1}return false}
+    return dfs(0)?result:null;
+  }
+  function hint(){
+    if(state.completed)return;const bad=paintConflicts();if(bad.reason){announce('先把亮起的小猫移走，再试试提示 🐾','warn');playSound('error');return}
+    const solution=solutionFor(state.cats);if(!solution){announce('这些小猫暂时挤不出一条路，拿走一只再试试 💛','warn');playSound('error');return}
+    const n=current().size,row=solution.findIndex((c,r)=>!state.cats[r*n+c]);if(row<0){completeIfValid();return}const i=row*n+solution[row];state.cats[i]=true;draw();board.children[i]?.classList.add('hint-target');announce('看看这只小猫的位置，接下来你来找！💡');if(state.cats.filter(Boolean).length===n)completeIfValid();
+  }
+  function completeIfValid(){
+    const n=current().size,cats=state.cats.filter(Boolean);if(state.completed||cats.length!==n)return;
+    const x=paintConflicts();if(x.reason){announce(x.reason+'，再调整一下就好。','warn');return}
+    state.completed=true;const done=new Set(state.cleared);done.add(state.level);state.cleared=[...done];state.unlocked=Math.max(state.unlocked,Math.min(20,state.level+2));saveProgress();announce('太棒啦！每只小猫都找到自己的家了！','good');$('#celebrate').classList.remove('show');void $('#celebrate').offsetWidth;$('#celebrate').classList.add('show');const last=state.level===19;$('#successTitle').textContent=last?'20 关全部完成！':'太棒啦！';$('#successMessage').textContent=last?'所有小猫都找到家啦，你真是找猫小高手！':'每只小猫都找到自己的家了！';$('#successAction').textContent=last?'回到选关':'下一关';$('#successOverlay').classList.add('open');playSound('success');renderLevels();window.setTimeout(()=>$('#successAction').focus(),40);
+  }
+  function renderLevels(){const root=$('#levels');root.innerHTML='';for(let i=0;i<20;i++){const b=document.createElement('button'),isLocked=i>=state.unlocked;b.className='level'+(i===state.level?' current':'')+(state.cleared.includes(i)?' cleared':'')+(isLocked?' locked':'');b.disabled=isLocked;b.innerHTML=`${isLocked?'🔒':i+1}${state.cleared.includes(i)?'<span class="mini-star">★</span>':''}`;b.setAttribute('aria-label',isLocked?`第 ${i+1} 关，未解锁`:`第 ${i+1} 关${state.cleared.includes(i)?'，已完成':''}`);if(!isLocked)b.addEventListener('click',()=>{playSound('tap');selectLevel(i)});root.appendChild(b)}}
+  function selectLevel(i){if(i<0||i>=state.unlocked)return;state.level=i;setupPuzzle();announce('先找一只小猫试试吧 🐱');draw();dialog.classList.remove('open');$('#successOverlay').classList.remove('open');window.scrollTo({top:0,behavior:'smooth'})}
+  function restart(){if(state.completed)return;playSound('tap');setupPuzzle();announce('本关重新开始啦！线索小猫还在原位 🐱');draw()}
+  function nextAfterSuccess(){playSound('tap');$('#successOverlay').classList.remove('open');if(state.level===19){renderLevels();dialog.classList.add('open');announce('全部 20 关完成啦！还可以重玩喜欢的关卡。','good');return}selectLevel(state.level+1)}
+  function check(){if(state.completed)return;const n=current().size,count=state.cats.filter(Boolean).length,x=paintConflicts();if(x.reason){announce(x.reason+'，点亮的小猫可以移走改一改。','warn');playSound('error');return}if(count<n){announce(`还要放 ${n-count} 只小猫，再检查一次吧。`);return}completeIfValid()}
+  let toastTimer;function toast(text){const t=$('#toast');t.textContent=text;t.classList.add('show');clearTimeout(toastTimer);toastTimer=setTimeout(()=>t.classList.remove('show'),1600)}
+  $('#restart').addEventListener('click',restart);$('#hint').addEventListener('click',()=>{playSound('tap');hint()});$('#clear').addEventListener('click',clearSelectedOrLast);$('#check').addEventListener('click',()=>{playSound('tap');check()});$('#successAction').addEventListener('click',nextAfterSuccess);
+  $('#openLevels').addEventListener('click',()=>{playSound('tap');renderLevels();dialog.classList.add('open')});$('#closeLevels').addEventListener('click',()=>{playSound('tap');dialog.classList.remove('open')});dialog.addEventListener('click',e=>{if(e.target===dialog)dialog.classList.remove('open')});$('#soundToggle').addEventListener('click',()=>{state.soundEnabled=!state.soundEnabled;saveProgress();updateSoundButton();if(state.soundEnabled)playSound('tap')});document.addEventListener('keydown',e=>{if(e.key==='Escape'&&!$('#successOverlay').classList.contains('open'))dialog.classList.remove('open')});
+  loadProgress();setupPuzzle();draw();announce('先找一只小猫试试吧 🐱');
+})();
+</script>
+</body>
+</html>
